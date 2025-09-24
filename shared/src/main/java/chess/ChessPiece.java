@@ -15,6 +15,8 @@ public class ChessPiece {
     final private ChessPiece.PieceType type;
     final private chessCalculatorMoves calculator;
 
+    static final public ChessPiece.PieceType[] PROMOTION_PIECES = { PieceType.QUEEN, PieceType.BISHOP, PieceType.KNIGHT, PieceType.ROOK };
+
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
         this.pieceColor = pieceColor;
         this.type = type;

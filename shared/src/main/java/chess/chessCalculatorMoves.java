@@ -7,6 +7,7 @@ public interface chessCalculatorMoves {
     Collection<ChessMove> calculatorMoves(ChessBoard board, ChessPosition pos);
 }
 
+
 class calculateKingMoves implements chessCalculatorMoves {
 
     @Override
@@ -48,10 +49,8 @@ class calculateKingMoves implements chessCalculatorMoves {
         }
 
         return moves;
-
     }
 }
-
 
 class calculateQueenMoves implements chessCalculatorMoves {
 
@@ -246,6 +245,62 @@ class calculatePawnMoves implements chessCalculatorMoves {
 
     @Override
     public Collection<ChessMove> calculatorMoves(ChessBoard board, ChessPosition pos) {
-        return null;
+        Collection<ChessMove> moves = new HashSet<>();
+
+        ChessPiece piece = board.getPiece(pos);
+        ChessGame.TeamColor color = piece.getTeamColor();
+        int row = pos.getRow();
+        int col = pos.getColumn();
+
+        boolean firstMove = row == 2 && color == ChessGame.TeamColor.WHITE || row == 7 && color == ChessGame.TeamColor.BLACK;
+        int r = (color == ChessGame.TeamColor.WHITE) ? 1 : -1;
+
+
+        for (int c = -1; c <= 1; c++) {
+            int dx = row + r;
+            int dy = col + c;
+
+            if (ChessBoard.isValidPosition(dx, dy)) {
+
+                ChessPosition forwardOne = new ChessPosition(dx, dy);
+                ChessPiece forwardOnePiece = board.getPiece(forwardOne);
+
+
+                if (c == 0) {
+                    if (forwardOnePiece == null) {
+                        calculatePromotionPiece(moves, pos, forwardOne);
+
+                        if (firstMove && ChessBoard.isValidPosition(dx + r, dy)) {
+                            ChessPosition forwardTwo = new ChessPosition(dx + r, dy);
+                            ChessPiece forwardTwoPiece = board.getPiece(forwardTwo);
+
+                            if (forwardTwoPiece == null) {
+                                moves.add(new ChessMove(pos, forwardTwo, null));
+                            }
+                        }
+                    }
+
+                } else {
+                    if (forwardOnePiece != null && piece.getTeamColor() != forwardOnePiece.getTeamColor()) {
+                        calculatePromotionPiece(moves, pos, forwardOne);
+                    }
+                }
+            }
+        }
+
+        return moves;
     }
+
+    void calculatePromotionPiece(Collection<ChessMove> moves, ChessPosition startPos, ChessPosition endPos){
+        if (endPos.getRow() == 1 || endPos.getRow() == 8) {
+            for (ChessPiece.PieceType type : ChessPiece.PROMOTION_PIECES) {
+                moves.add(new ChessMove(startPos, endPos, type));
+            }
+        } else {
+            moves.add(new ChessMove(startPos, endPos, null));
+        }
+    }
+
+
+
 }

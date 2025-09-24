@@ -33,10 +33,7 @@ public class ChessGame {
     /**
      * Enum identifying the 2 possible teams in a chess game
      */
-    public enum TeamColor {
-        WHITE,
-        BLACK
-    }
+    public enum TeamColor { WHITE, BLACK }
 
     /**
      * Gets a valid moves for a piece at the given location
