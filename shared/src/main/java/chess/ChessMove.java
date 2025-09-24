@@ -1,7 +1,5 @@
 package chess;
 
-import java.util.Objects;
-
 /**
  * Represents moving a chess piece on a chessboard
  * <p>
@@ -42,12 +40,6 @@ public class ChessMove {
     @Override
     public String toString() {
         return String.format("ChessMove{%s, %s}", startPosition, endPosition);
-
-//                "ChessMove{$s, $s}, "+
-//                "startPosition=" + startPosition +
-//                ", endPosition=" + endPosition +
-//                ", promotionPiece=" + promotionPiece +
-//                '}';
     }
 
     @Override
@@ -57,23 +49,16 @@ public class ChessMove {
 
         ChessMove chessMove = (ChessMove) o;
 
-        if (!Objects.equals(startPosition, chessMove.startPosition)) { return false; }
-        if (!Objects.equals(endPosition, chessMove.endPosition)) { return false; }
+        if (!startPosition.equals(chessMove.startPosition)) { return false; }
+        if (!endPosition.equals(chessMove.endPosition)) { return false; }
         return promotionPiece == chessMove.promotionPiece;
     }
 
     @Override
     public int hashCode() {
         int result = startPosition != null ? startPosition.hashCode() : 0;
-//        result = 31 * result + (endPosition != null ? endPosition.hashCode() : 0);
-//        result = 31 * result + (promotionPiece != null ? promotionPiece.hashCode() : 0);
+        result = 31 * result + (endPosition != null ? endPosition.hashCode() : 0);
+        result = 31 * result + (promotionPiece != null ? promotionPiece.hashCode() : 0);
         return result;
-
-//        Expected :-1197832908
-//        Actual   :484692205
-
-//        Expected :-1878379582
-//        Actual   :-1701160940
-
     }
 }
