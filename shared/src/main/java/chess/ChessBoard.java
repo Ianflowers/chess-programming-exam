@@ -54,8 +54,8 @@ public class ChessBoard {
                 ChessPiece.PieceType.ROOK,
                 ChessPiece.PieceType.KNIGHT,
                 ChessPiece.PieceType.BISHOP,
-                ChessPiece.PieceType.KING,
                 ChessPiece.PieceType.QUEEN,
+                ChessPiece.PieceType.KING,
                 ChessPiece.PieceType.BISHOP,
                 ChessPiece.PieceType.KNIGHT,
                 ChessPiece.PieceType.ROOK
@@ -66,8 +66,8 @@ public class ChessBoard {
 
             addPiece(new ChessPosition(1, c), new ChessPiece(ChessGame.TeamColor.WHITE, pieces[c - 1]));
             addPiece(new ChessPosition(2, c), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN));
-            addPiece(new ChessPosition(7, c), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN));
-            addPiece(new ChessPosition(8, c), new ChessPiece(ChessGame.TeamColor.WHITE, pieces[c - 1]));
+            addPiece(new ChessPosition(7, c), new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+            addPiece(new ChessPosition(8, c), new ChessPiece(ChessGame.TeamColor.BLACK, pieces[c - 1]));
 
         }
 
@@ -81,7 +81,6 @@ public class ChessBoard {
                 "board=" + Arrays.toString(board) +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {
