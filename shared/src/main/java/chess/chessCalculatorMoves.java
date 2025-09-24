@@ -155,7 +155,43 @@ class calculateKnightMoves implements chessCalculatorMoves {
 
     @Override
     public Collection<ChessMove> calculatorMoves(ChessBoard board, ChessPosition pos) {
-        return null;
+        Collection<ChessMove> moves = new HashSet<>();
+
+        ChessPiece piece = board.getPiece(pos);
+
+        int[][] directions = {
+                {1, 2},
+                {2, 1},
+                {2, -1},
+                {1, -2},
+                {-1, -2},
+                {-2, -1},
+                {-2, 1},
+                {-1, 2},
+        };
+
+        int row = pos.getRow();
+        int col = pos.getColumn();
+
+        for (int[] direction : directions) {
+
+            int dx = row + direction[0];
+            int dy = col + direction[1];
+
+            if (ChessBoard.isValidPosition(dx, dy)) {
+                ChessPosition newPosition = new ChessPosition(dx, dy);
+                ChessPiece newPiece = board.getPiece(newPosition);
+
+                if (newPiece != null && piece.getTeamColor() != newPiece.getTeamColor()) {
+                    moves.add(new ChessMove(pos, newPosition, null));
+                }
+                if (newPiece == null) {
+                    moves.add(new ChessMove(pos, newPosition, null));
+                }
+            }
+        }
+
+        return moves;
     }
 }
 
