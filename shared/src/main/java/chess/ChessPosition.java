@@ -29,9 +29,6 @@ public class ChessPosition {
 
     @Override
     public String toString() {
-        return "ChessPosition{" +
-                "row=" + row +
-                ", col=" + col +
-                '}';
+        return String.format("ChessMove{%s, %s}", row, col);
     }
 }
